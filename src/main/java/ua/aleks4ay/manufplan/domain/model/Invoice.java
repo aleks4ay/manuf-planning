@@ -7,7 +7,7 @@ public class Invoice {
     private String idInvoice;
     private String idOrder;
     private String idTmc;
-    private String docNomberTmc;
+    private String docNomberInvoice;
     private Timestamp timeInvoice;
     private int quantity = 0;
     private double payment;
@@ -16,13 +16,13 @@ public class Invoice {
         this.id = id;
     }
 
-    public Invoice(String id, String idInvoice, String idOrder, String idTmc, String docNomberTmc,
+    public Invoice(String id, String idInvoice, String idOrder, String idTmc, String docNomberInvoice,
                    Timestamp timeInvoice, int quantity, double payment) {
         this.id = id;
         this.idInvoice = idInvoice;
         this.idOrder = idOrder;
         this.idTmc = idTmc;
-        this.docNomberTmc = docNomberTmc;
+        this.docNomberInvoice = docNomberInvoice;
         this.timeInvoice = timeInvoice;
         this.quantity = quantity;
         this.payment = payment;
@@ -52,12 +52,12 @@ public class Invoice {
         this.idOrder = idOrder;
     }
 
-    public String getDocNomberTmc() {
-        return docNomberTmc;
+    public String getDocNomberInvoice() {
+        return docNomberInvoice;
     }
 
-    public void setDocNomberTmc(String docNomberTmc) {
-        this.docNomberTmc = docNomberTmc;
+    public void setDocNomberInvoice(String docNomberInvoice) {
+        this.docNomberInvoice = docNomberInvoice;
     }
 
     public Timestamp getTimeInvoice() {
@@ -99,7 +99,7 @@ public class Invoice {
                 ", idInvoice='" + idInvoice + '\'' +
                 ", idOrder='" + idOrder + '\'' +
                 ", idTmc='" + idTmc + '\'' +
-                ", docNomberTmc='" + docNomberTmc + '\'' +
+                ", docNomberInvoice='" + docNomberInvoice + '\'' +
                 ", timeInvoice=" + timeInvoice +
                 ", quantity=" + quantity +
                 ", payment=" + payment +
