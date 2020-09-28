@@ -3,20 +3,22 @@ package ua.aleks4ay.manufplan.domain.model;
 import java.sql.Timestamp;
 
 public class OrderPoint {
-    private String id;
-    private String idOrder;
-    private String idTmc;
-    private String tmcDescription;
-    private int position;
-    private String description;
-    private int quantity = 0;
+    private String id; //description.id
+    private String idOrder; //description.iddoc  (by orders.iddoc)
+    private String idTmc; //description.id_tmc
+    private String tmcDescription; //techno_item.descr (by techno_item.id)
+    private int position; //description.position
+    private String description; //description.descr_second
+    private int quantity = 0; //description.quantity
     private int quantityShipped = 0;
-    private int tmcBalance = 0;
-    private Timestamp dateCreate;
-    private Timestamp dateToFactory;
-    private Timestamp dateToShipment;
-    private String docNumber;
+    private int tmcBalance = 0; //techno_item.store_c
+    private Timestamp dateCreate; //orders.t_create
+    private Timestamp dateToFactory; //orders.t_factory
+    private Timestamp dateToShipment; //orders.t_end
+    private String docNumber; //orders.docno
     private boolean closed = false;
+    private String ClientName; //orders.client_name
+    private String ManagerName; //orders.manager_name
 
     public OrderPoint(String id) {
         this.id = id;
@@ -128,6 +130,22 @@ public class OrderPoint {
 
     public boolean isClosed() {
         return closed;
+    }
+
+    public String getClientName() {
+        return ClientName;
+    }
+
+    public void setClientName(String clientName) {
+        ClientName = clientName;
+    }
+
+    public String getManagerName() {
+        return ManagerName;
+    }
+
+    public void setManagerName(String managerName) {
+        ManagerName = managerName;
     }
 
     public void setClosed(boolean closed) {

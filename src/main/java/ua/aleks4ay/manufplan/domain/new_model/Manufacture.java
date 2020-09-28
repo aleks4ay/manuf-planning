@@ -1,4 +1,4 @@
-package ua.aleks4ay.manufplan.domain.model;
+package ua.aleks4ay.manufplan.domain.new_model;
 
 import java.sql.Timestamp;
 

@@ -6,15 +6,10 @@ import com.linuxense.javadbf.DBFRow;
 import com.linuxense.javadbf.DBFUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ua.aleks4ay.manufplan.domain.model.Journal;
-import ua.aleks4ay.manufplan.domain.tools.TimeConverter;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import static ua.aleks4ay.manufplan.log.ClassNameUtil.getCurrentClassName;
