@@ -1,5 +1,8 @@
 package ua.aleks4ay.manufplan.domain.model;
 
+import ua.aleks4ay.manufplan.domain.tools.DateConverter;
+
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,6 +24,10 @@ public class Description implements Comparable{
     private Tmc tmc;
 
 //    private int quantityShipped = 0;
+
+
+    public Description() {
+    }
 
     public Description(String id, String idOrder, int position, int quantity, String descrSecond,
                        int sizeA, int sizeB, int sizeC, Tmc tmc) {
@@ -141,9 +148,53 @@ public class Description implements Comparable{
         return result;
     }
 
+
+    public String getTmcDescription() {
+        return tmc.getTmcDescription();
+    }
+
+    public void setTmcDescription(String tmcDescription) {
+        this.tmc.setTmcDescription(tmcDescription);
+    }
+
+    public String getDocNumber() {
+        return order.getDocNumber();
+    }
+
+    public void setDocNumber(String docNumber) {
+        this.order.setDocNumber(docNumber);
+    }
+
+    public String getManager() {
+        return order.getManagerName();
+    }
+
+    public void setManager(String manager) {
+        this.order.setManagerName(manager);
+    }
+
+    public String getClient() {
+        return order.getClientName();
+    }
+
+    public void setClient(String client) {
+        this.order.setClientName(client);
+    }
+
+    public String getDateToFactory() {
+        return DateConverter.dateToString(order.getDateToFactory().getTime());
+    }
+
+    public void setDateToFactory(String dateToFactory) {
+        this.order.setDateToFactory(Timestamp.valueOf(dateToFactory));
+    }
+
+
+
     public void addInvoice(Invoice newInvoice) {
         invoices.add(newInvoice);
     }
+
 
     @Override
     public String toString() {

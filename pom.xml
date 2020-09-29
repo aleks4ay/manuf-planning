@@ -6,17 +6,23 @@
 
     <groupId>ua.aleks4ay</groupId>
     <artifactId>manufacturing-planning</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <version>1.0</version>
+    <packaging>war</packaging>
 
     <properties>
-        <!--<spring-version>5.1.9.RELEASE</spring-version>-->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spring-version>5.2.8.RELEASE</spring-version>
         <java-version>1.8</java-version>
+        <hibernate-validator.version>6.0.10.Final</hibernate-validator.version>
         <!--<junit.version>4.12</junit.version>-->
         <!-- Logging -->
         <logback.version>1.2.3</logback.version>
         <slf4j.version>1.7.30</slf4j.version>
+        <!--<hibernate.version>5.1.0.Final</hibernate.version>-->
+        <!--<c3p0.version>0.9.5.2</c3p0.version>-->
     </properties>
+
+
 
 
     <dependencies>
@@ -53,11 +59,55 @@
             <version>42.2.5</version>
         </dependency>
 
+        <!--  S P R I N G   -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${spring-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${hibernate-validator.version}</version>
+        </dependency>
+
     </dependencies>
 
 
 
     <build>
+        <!--	<sourceDirectory>src/main/java</sourceDirectory> -->
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>${java-version}</source>
+                    <target>${java-version}</target>
+                    <testSource>${java-version}</testSource>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.2.3</version>
+            </plugin>
+        </plugins>
+    </build>
+    <!--<build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -90,6 +140,6 @@
             </plugin>
 
         </plugins>
-    </build>
+    </build>-->
 
 </project>
