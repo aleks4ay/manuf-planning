@@ -16,24 +16,32 @@ import static ua.aleks4ay.manufplan.domain.tools.DateConverter.dateToString;
 
 public class ViewData {
     private final String fileName;
+    private final String dateStart;
+    private final String dateEnd;
 
-    public ViewData(String fileName) {
+    public ViewData(String fileName, String dateStart, String dateEnd) {
         this.fileName = fileName;
+        this.dateStart = dateStart;
+        this.dateEnd = dateEnd;
     }
 
     MainData mainData = new MainData();
 
     public void printTmcMapToHtml(List<List<Description>> tmcListOfList) {
+        int numberOfReports = mainData.getnumberOfDescription(tmcListOfList);
         Writer writer = null;
         try {
             writer = new FileWriter(new File(fileName));
             writer.write("<!DOCTYPE html>" + "<html lang=\"en\">\n");
-            writer.write("<head>" + "<meta charset=\"UTF-8\">\n");
+//            writer.write("<head>" + "<meta charset=\"UTF-8\">\n");
+            writer.write("<head>" + "<meta charset=\"ISO-1251\">\n");
             writer.write("<title>КИЙ-В</title>\n");
             writer.write("<link href=\"style1.css\" rel=\"stylesheet\" type=\"text/css\">\n");
             writer.write("</head>\n");
             writer.write("<body>\n");
-            writer.write("<H1>Данные по Технологичке</H1>\n");
+            writer.write("<H1>Данные по Технологичке, записей " + numberOfReports + " <i>("
+                    + dateStart.replace("-", ".") + " - " + dateEnd.replace("-", ".") + ")</i> </H1>\n");
+//            writer.write("<H3>С " + dateStart + " по " + dateEnd + "</H3>\n");
             writer.write("<div><table>\n");
 
             writer.write("<tr>\n");

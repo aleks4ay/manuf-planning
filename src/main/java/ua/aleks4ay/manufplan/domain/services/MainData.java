@@ -67,7 +67,7 @@ public class MainData {
     }
 
     public List<Description> filterOpenWithDate (List<Description> descriptions, String minDayMonthYearDividedDash,
-                                             String maxDayMonthYearDividedDash) {
+                                                 String maxDayMonthYearDividedDash) {
         Timestamp dateStart = DateConverter.getTimestampFromString(minDayMonthYearDividedDash);
         Timestamp dateEnd = DateConverter.getTimestampFromString(maxDayMonthYearDividedDash);
         return descriptions.stream()
@@ -120,6 +120,14 @@ public class MainData {
         Map<String, List<Description>> tmcMap = getTmcAsMapOfList(descriptionList);
         List<List<Description>> result =  new ArrayList<>();
         result.addAll(tmcMap.values());
+        return result;
+    }
+
+    public int getnumberOfDescription(List<List<Description>> descriptionListofList) {
+        int result = 0;
+        for (List<Description> descriptionList : descriptionListofList){
+            result += descriptionList.size();
+        }
         return result;
     }
 

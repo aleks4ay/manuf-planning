@@ -50,7 +50,7 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.2.8</version>
+            <version>42.2.5</version>
         </dependency>
 
     </dependencies>
@@ -75,7 +75,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>ua.aleks4ay.manufplan.controller.Run</mainClass>
+                            <mainClass>ua.aleks4ay.manufplan.controller.ReportController</mainClass>
                         </manifest>
                         <manifestEntries>
                             <Class-Path>
