@@ -7,7 +7,7 @@ import java.util.Set;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-public class Description {
+public class Description implements Comparable{
 
     private String id; //description.id
     private String idOrder; //description.iddoc
@@ -163,7 +163,7 @@ public class Description {
 //                ", order=" + order +
 //                ", manuf=" + manuf +
                 ", invoices=" + invoices +
-//                ", tmc=" + tmc +
+                ", tmc=" + tmc +
                 '}';
     }
 
@@ -190,4 +190,8 @@ public class Description {
     }
 
 
+    @Override
+    public int compareTo(Object o) {
+        return 0;
+    }
 }

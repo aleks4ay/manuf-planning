@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ua.aleks4ay.manufplan.domain.new_model.*;
 import ua.aleks4ay.manufplan.domain.tools.DateConverter;
-import ua.aleks4ay.manufplan.domain.view.ViewData;
 
 import java.sql.Timestamp;
 import java.util.*;
@@ -13,27 +12,19 @@ import java.util.stream.Collectors;
 import static ua.aleks4ay.manufplan.log.ClassNameUtil.getCurrentClassName;
 
 public class MainData {
-    private static final String MIN_DEY_TO_FACTORY = "15-03-2020";
-    private static final String MAX_DEY_TO_FACTORY = "31-12-2020";
     private static final Logger log = LoggerFactory.getLogger(getCurrentClassName());
 
-    public static void main(String[] args) {
-        MainData readerFromPostgres = new MainData();
-        List<Description> allDescription = readerFromPostgres.getAllDescription();
-        List<Description> openDescriptions = readerFromPostgres.filterOpenWithDate(
-                allDescription, MIN_DEY_TO_FACTORY, MAX_DEY_TO_FACTORY );
-
-        log.info("filterOpenDescription return {} Descriptions from Postgres.", openDescriptions.size());
-//        openDescriptions.forEach(System.out::println);
-        ViewData viewData = new ViewData();
-        viewData.printHtml(openDescriptions);
-    }
-
     public List<Description> getAllDescription() {
+
         List<Description> descriptions = new DescriptionReader().getAll();
         log.info("Was return {} Description from Postgres.", descriptions.size());
+
         Map<String, Tmc> technoProducts = new TmcReader().getAllAsMap();
         log.info("Was return {} technoProducts from Postgres.", technoProducts.size());
+
+        descriptions = filterOnlyTechno(descriptions, technoProducts);
+        log.info("Was return {} Description after filtering by TechnoProducts.", descriptions.size());
+
         Map<String, Order> orders = new OrderReader().getAllAsMap();
         log.info("Was return {} orders from Postgres.", orders.size());
         Map<String, List<Invoice>> invoiceMap = new InvoiceReader().getAllAsMapOfList();
@@ -63,6 +54,18 @@ public class MainData {
         return descriptions;
     }
 
+    private List<Description> filterOnlyTechno(List<Description> descriptions, Map<String, Tmc> tmcMap) {
+        List<Description> descriptionsAfterFilter = new ArrayList<>();
+        for (Description description : descriptions) {
+            String idTmcFromDescription = description.getTmc().getId();
+
+            if (tmcMap.containsKey(idTmcFromDescription)) {
+                descriptionsAfterFilter.add(description);
+            }
+        }
+        return descriptionsAfterFilter;
+    }
+
     public List<Description> filterOpenWithDate (List<Description> descriptions, String minDayMonthYearDividedDash,
                                              String maxDayMonthYearDividedDash) {
         Timestamp dateStart = DateConverter.getTimestampFromString(minDayMonthYearDividedDash);
@@ -74,4 +77,56 @@ public class MainData {
                 .collect(Collectors.toList());
     }
 
+    public List<Description> sortByIdTmc(List<Description> oldDescriptions) {
+        Comparator<Description> comparatorIdTmc = (o1, o2) -> o1.getTmc().getId().compareTo(o2.getTmc().getId());
+        Collections.sort(oldDescriptions, comparatorIdTmc);
+        return oldDescriptions;
+    }
+
+    public List<Description> sortByDescriptionTmc(List<Description> oldDescriptions) {
+        Comparator<Description> comparatorIdTmc = (o1, o2) ->
+                o1.getTmc().getTmcDescription().compareTo(o2.getTmc().getTmcDescription());
+        Collections.sort(oldDescriptions, comparatorIdTmc);
+        return oldDescriptions;
+    }
+
+    public List<List<Description>> sortByListDescriptionTmc(List<List<Description>> oldList) {
+        Comparator<List<Description>> comparatorIdTmc = (o1, o2) ->
+                o1.get(0).getTmc().getTmcDescription().compareTo(o2.get(0).getTmc().getTmcDescription());
+        Collections.sort(oldList, comparatorIdTmc);
+        return oldList;
+    }
+
+    public Map<String, List<Description>> getTmcAsMapOfList(List<Description> descriptionList) {
+        Map<String, List<Description>> tmcMap = new HashMap<>();
+        int key = 0;
+        for (Description descr : descriptionList) {
+            String idTmcFromDescription = descr.getTmc().getId();
+
+            if (! tmcMap.containsKey(idTmcFromDescription)) {
+                List<Description> tempDescriptionList = new ArrayList<>();
+                tempDescriptionList.add(descr);
+                tmcMap.put(idTmcFromDescription, tempDescriptionList);
+            }
+            else {
+                List<Description> tempDescriptionList = tmcMap.get(idTmcFromDescription);
+                tempDescriptionList.add(descr);
+            }
+        }
+        return tmcMap;
+    }
+
+    public List<List<Description>> getTmcAsListOfList(List<Description> descriptionList) {
+        Map<String, List<Description>> tmcMap = getTmcAsMapOfList(descriptionList);
+        List<List<Description>> result =  new ArrayList<>();
+        result.addAll(tmcMap.values());
+        return result;
+    }
+
+    public List<Description> sortByDateToFactory(List<Description> oldDescriptions) {
+        Comparator<Description> comparatorIdTmc = (o1, o2) ->
+                o1.getOrder().getDateToFactory().compareTo(o2.getOrder().getDateToFactory());
+        Collections.sort(oldDescriptions, comparatorIdTmc);
+        return oldDescriptions;
+    }
 }

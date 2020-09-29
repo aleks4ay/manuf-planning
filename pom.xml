@@ -75,7 +75,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>kiyv.run.CopyNewFiles</mainClass>
+                            <mainClass>ua.aleks4ay.manufplan.controller.Run</mainClass>
                         </manifest>
                         <manifestEntries>
                             <Class-Path>

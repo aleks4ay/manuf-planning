@@ -90,9 +90,4 @@ public final class DateConverter {
         return Timestamp.valueOf(localDateTime);
     }
 
-    public static String getShortDeteWithYear(Timestamp date) {
-        String result = "";
-        LocalDate localDate = LocalDate.ofEpochDay(date.getTime());
-        return localDate.toString();
-    }
 }
