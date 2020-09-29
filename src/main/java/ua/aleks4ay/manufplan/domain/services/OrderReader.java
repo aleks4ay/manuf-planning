@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ua.aleks4ay.manufplan.domain.dao.OrderDao;
 import ua.aleks4ay.manufplan.domain.dao.UtilDao;
-import ua.aleks4ay.manufplan.domain.new_model.Order;
+import ua.aleks4ay.manufplan.domain.model.Order;
 
 import java.sql.Connection;
 import java.util.List;

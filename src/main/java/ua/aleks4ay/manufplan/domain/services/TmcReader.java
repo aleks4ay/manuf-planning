@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ua.aleks4ay.manufplan.domain.dao.TmcDao;
 import ua.aleks4ay.manufplan.domain.dao.UtilDao;
-import ua.aleks4ay.manufplan.domain.new_model.Tmc;
+import ua.aleks4ay.manufplan.domain.model.Tmc;
 
 import java.sql.Connection;
 import java.util.List;

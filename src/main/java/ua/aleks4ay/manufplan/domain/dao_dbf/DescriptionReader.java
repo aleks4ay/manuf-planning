@@ -2,7 +2,7 @@ package ua.aleks4ay.manufplan.domain.dao_dbf;
 
 import java.io.*;
 import com.linuxense.javadbf.*;
-import ua.aleks4ay.manufplan.domain.model.Description;
+import ua.aleks4ay.manufplan.domain.dao_dbf.model_dbf.Description;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

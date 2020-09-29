@@ -3,7 +3,7 @@ package ua.aleks4ay.manufplan.domain.services;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ua.aleks4ay.manufplan.domain.dao_dbf.*;
-import ua.aleks4ay.manufplan.domain.model.*;
+import ua.aleks4ay.manufplan.domain.dao_dbf.model_dbf.*;
 import ua.aleks4ay.manufplan.domain.tools.DateConverter;
 import ua.aleks4ay.manufplan.domain.dao_dbf.DescriptionReader;
 import ua.aleks4ay.manufplan.domain.dao_dbf.OrderReader;

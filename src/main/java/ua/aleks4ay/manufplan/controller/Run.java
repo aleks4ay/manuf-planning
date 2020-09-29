@@ -1,6 +1,6 @@
 package ua.aleks4ay.manufplan.controller;
 
-import ua.aleks4ay.manufplan.domain.new_model.Description;
+import ua.aleks4ay.manufplan.domain.model.Description;
 import ua.aleks4ay.manufplan.domain.services.MainData;
 import ua.aleks4ay.manufplan.domain.view.ViewData;
 

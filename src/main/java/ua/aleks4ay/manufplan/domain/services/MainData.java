@@ -2,7 +2,7 @@ package ua.aleks4ay.manufplan.domain.services;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ua.aleks4ay.manufplan.domain.new_model.*;
+import ua.aleks4ay.manufplan.domain.model.*;
 import ua.aleks4ay.manufplan.domain.tools.DateConverter;
 
 import java.sql.Timestamp;

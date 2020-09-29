@@ -3,54 +3,40 @@ package ua.aleks4ay.manufplan.domain.model;
 
 import java.sql.Timestamp;
 
-public class Order {
-    private String idDoc;
-    private String idClient;
-    private String idManager;
-    private int durationTime;
-    private Timestamp dateToFactory;
-    private double price;
+public class Order { //orders
+    private String idOrder; //orders.iddoc
+    private Timestamp dateCreate; //orders.t_create
+    private Timestamp dateToFactory; //orders.t_factory
+    private Timestamp dateToShipment; //orders.t_end
+    private String docNumber; //orders.docno
+    private String ClientName; //orders.client_name
+    private String ManagerName; //orders.manager_name
 
-
-    public Order(String idDoc, String idClient, String idManager, int durationTime, Timestamp dateToFactory, double price) {
-        this.idDoc = idDoc;
-        this.idClient = idClient;
-        this.idManager = idManager;
-        this.durationTime = durationTime;
+    public Order(String idOrder, Timestamp dateCreate, Timestamp dateToFactory, Timestamp dateToShipment,
+                 String docNumber, String clientName, String managerName) {
+        this.idOrder = idOrder;
+        this.dateCreate = dateCreate;
         this.dateToFactory = dateToFactory;
-        this.price = price;
+        this.dateToShipment = dateToShipment;
+        this.docNumber = docNumber;
+        ClientName = clientName;
+        ManagerName = managerName;
     }
 
-    public String getIdDoc() {
-        return idDoc;
+    public String getIdOrder() {
+        return idOrder;
     }
 
-    public void setIdDoc(String idDoc) {
-        this.idDoc = idDoc;
+    public void setIdOrder(String idOrder) {
+        this.idOrder = idOrder;
     }
 
-    public String getIdClient() {
-        return idClient;
+    public Timestamp getDateCreate() {
+        return dateCreate;
     }
 
-    public void setIdClient(String idClient) {
-        this.idClient = idClient;
-    }
-
-    public String getIdManager() {
-        return idManager;
-    }
-
-    public void setIdManager(String idManager) {
-        this.idManager = idManager;
-    }
-
-    public int getDurationTime() {
-        return durationTime;
-    }
-
-    public void setDurationTime(int durationTime) {
-        this.durationTime = durationTime;
+    public void setDateCreate(Timestamp dateCreate) {
+        this.dateCreate = dateCreate;
     }
 
     public Timestamp getDateToFactory() {
@@ -61,11 +47,52 @@ public class Order {
         this.dateToFactory = dateToFactory;
     }
 
-    public double getPrice() {
-        return price;
+    public Timestamp getDateToShipment() {
+        return dateToShipment;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setDateToShipment(Timestamp dateToShipment) {
+        this.dateToShipment = dateToShipment;
+    }
+
+    public String getDocNumber() {
+        return docNumber;
+    }
+
+    public void setDocNumber(String docNumber) {
+        this.docNumber = docNumber;
+    }
+
+    public String getClientName() {
+        return ClientName;
+    }
+
+    public void setClientName(String clientName) {
+        ClientName = clientName;
+    }
+
+    public String getManagerName() {
+        return ManagerName;
+    }
+
+    public void setManagerName(String managerName) {
+        ManagerName = managerName;
+    }
+
+    public Order getOrder() {
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "idOrder='" + idOrder + '\'' +
+                ", dateCreate=" + dateCreate +
+                ", dateToFactory=" + dateToFactory +
+                ", dateToShipment=" + dateToShipment +
+                ", docNumber='" + docNumber + '\'' +
+                ", ClientName='" + ClientName + '\'' +
+                ", ManagerName='" + ManagerName + '\'' +
+                '}';
     }
 }

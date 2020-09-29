@@ -2,13 +2,9 @@ package ua.aleks4ay.manufplan.domain.model;
 
 public class Tmc {
 
-    private String id;
-    private String idParent;
-    private String code;
-    private String descr;
-    private int isFolder;
-    private String descrAll;
-    private String type;
+    private String id; //techno_item.id
+    private String tmcDescription; //techno_item.descr (by techno_item.id)
+    private int balance; //techno_item.store_c
 
     public Tmc() {
     }
@@ -17,16 +13,10 @@ public class Tmc {
         this.id = id;
     }
 
-
-
-    public Tmc(String id, String idParent, String code, String descr, int isFolder, String descrAll, String type) {
+    public Tmc(String id, String tmcDescription, int balance) {
         this.id = id;
-        this.idParent = idParent;
-        this.code = code;
-        this.descr = descr;
-        this.isFolder = isFolder;
-        this.descrAll = descrAll;
-        this.type = type;
+        this.tmcDescription = tmcDescription;
+        this.balance = balance;
     }
 
     public String getId() {
@@ -37,52 +27,20 @@ public class Tmc {
         this.id = id;
     }
 
-    public String getIdParent() {
-        return idParent;
+    public String getTmcDescription() {
+        return tmcDescription;
     }
 
-    public void setIdParent(String idParent) {
-        this.idParent = idParent;
+    public void setTmcDescription(String tmcDescription) {
+        this.tmcDescription = tmcDescription;
     }
 
-    public String getCode() {
-        return code;
+    public int getBalance() {
+        return balance;
     }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getDescr() {
-        return descr;
-    }
-
-    public void setDescr(String descr) {
-        this.descr = descr;
-    }
-
-    public int getIsFolder() {
-        return isFolder;
-    }
-
-    public void setIsFolder(int isFolder) {
-        this.isFolder = isFolder;
-    }
-
-    public String getDescrAll() {
-        return descrAll;
-    }
-
-    public void setDescrAll(String descrAll) {
-        this.descrAll = descrAll;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
+    public void setBalance(int balance) {
+        this.balance = balance;
     }
 
     public Tmc getTmc() {
@@ -93,12 +51,9 @@ public class Tmc {
     public String toString() {
         return "Tmc{" +
                 "id='" + id + '\'' +
-                ", idParent='" + idParent + '\'' +
-                ", code='" + code + '\'' +
-                ", descr='" + descr + '\'' +
-                ", isFolder=" + isFolder +
-                ", descrAll='" + descrAll + '\'' +
-                ", type='" + type + '\'' +
+                ", descr='" + tmcDescription + '\'' +
+                ", balance=" + balance +
                 '}';
     }
 }
+

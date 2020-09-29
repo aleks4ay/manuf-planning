@@ -1,25 +1,33 @@
 package ua.aleks4ay.manufplan.domain.model;
 
-public class Description {
+import java.util.HashSet;
+import java.util.Set;
 
-    private String id;
-    private String idDoc;
-    private int position;
-    private String idTmc;
-    private int quantity;
-    private String descrSecond;
-    private int sizeA;
-    private int sizeB;
-    private int sizeC;
-    private double price = 0d;
+public class Description implements Comparable{
 
+    private String id; //description.id
+    private String idOrder; //description.iddoc
+    private int position; //description.position
+//    private String idTmc; //description.id_tmc
+    private int quantity; //description.quantity
+    private String descrSecond; //description.descr_second
+    private int sizeA; //description.size_a
+    private int sizeB; //description.size_b
+    private int sizeC; //description.size_c
 
-    public Description(String id, String idDoc, int position, String idTmc, int quantity,
-                       String descrSecond, int sizeA, int sizeB, int sizeC, double price) {
+    private Order order;
+    private Manufacture manuf;
+    private Set<Invoice> invoices = new HashSet<>();
+    private Tmc tmc;
+
+//    private int quantityShipped = 0;
+
+    public Description(String id, String idOrder, int position, int quantity, String descrSecond,
+                       int sizeA, int sizeB, int sizeC, Tmc tmc) {
         this.id = id;
-        this.idDoc = idDoc;
+        this.idOrder = idOrder;
         this.position = position;
-        this.idTmc = idTmc;
+        this.tmc = tmc;
         this.quantity = quantity;
         this.descrSecond = descrSecond;
         this.sizeA = sizeA;
@@ -35,12 +43,12 @@ public class Description {
         this.id = id;
     }
 
-    public String getIdDoc() {
-        return idDoc;
+    public String getIdOrder() {
+        return idOrder;
     }
 
-    public void setIdDoc(String idDoc) {
-        this.idDoc = idDoc;
+    public void setIdOrder(String idOrder) {
+        this.idOrder = idOrder;
     }
 
     public int getPosition() {
@@ -49,14 +57,6 @@ public class Description {
 
     public void setPosition(int position) {
         this.position = position;
-    }
-
-    public String getIdTmc() {
-        return idTmc;
-    }
-
-    public void setIdTmc(String idTmc) {
-        this.idTmc = idTmc;
     }
 
     public int getQuantity() {
@@ -99,27 +99,95 @@ public class Description {
         this.sizeC = sizeC;
     }
 
-    public double getPrice() {
-        return price;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public Manufacture getManuf() {
+        return manuf;
+    }
+
+    public void setManuf(Manufacture manuf) {
+        this.manuf = manuf;
+    }
+
+    public Set<Invoice> getInvoices() {
+        return invoices;
+    }
+
+    public void setInvoices(Set<Invoice> invoices) {
+        this.invoices = invoices;
+    }
+
+    public Tmc getTmc() {
+        return tmc;
+    }
+
+    public void setTmc(Tmc tmc) {
+        this.tmc = tmc;
+    }
+
+    public int getQuantityShipped() {
+        int result = 0;
+        if (invoices != null) {
+            for (Invoice invoice : invoices) {
+                result += invoice.getQuantity();
+            }
+        }
+        return result;
+    }
+
+    public void addInvoice(Invoice newInvoice) {
+        invoices.add(newInvoice);
     }
 
     @Override
     public String toString() {
         return "Description{" +
                 "id='" + id + '\'' +
-                ", idDoc='" + idDoc + '\'' +
+                ", idOrder='" + idOrder + '\'' +
                 ", position=" + position +
-                ", idTmc='" + idTmc + '\'' +
                 ", quantity=" + quantity +
-                ", descrSecond='" + descrSecond + '\'' +
-                ", sizeA=" + sizeA +
-                ", sizeB=" + sizeB +
-                ", sizeC=" + sizeC +
-                ", price=" + price +
+//                ", descrSecond='" + descrSecond + '\'' +
+//                ", sizeA=" + sizeA +
+//                ", sizeB=" + sizeB +
+//                ", sizeC=" + sizeC +
+//                ", order=" + order +
+//                ", manuf=" + manuf +
+                ", invoices=" + invoices +
+                ", tmc=" + tmc +
                 '}';
+    }
+
+//    @Override
+//    public String toString() {
+//        return "Description{" +
+//                "id='" + id + '\'' +
+//                ", idOrder='" + idOrder + '\'' +
+//                ", position=" + position +
+//                ", idTmc='" + tmc.getId() + '\'' +
+//                ", quantity=" + quantity +
+//                ", descrSecond='" + descrSecond + '\'' +
+//                ", sizeA=" + sizeA +
+//                ", sizeB=" + sizeB +
+//                ", sizeC=" + sizeC +
+//                '}';
+//    }
+
+    public String printMainDescription() {
+        return  tmc.getId() + '\t' + tmc.getTmcDescription() + '\t' + id + '\t' + idOrder + '\t' +
+                order.getDocNumber() + '\t' + quantity + '\t' + getQuantityShipped() + '\t' + tmc.getBalance() + '\t' +
+                order.getDateCreate() + '\t' + order.getDateToFactory() + '\t' + descrSecond
+                + '\t' + order.getClientName() + '\t' + order.getManagerName();
+    }
+
+
+    @Override
+    public int compareTo(Object o) {
+        return 0;
     }
 }

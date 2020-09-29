@@ -4,7 +4,7 @@ import java.io.*;
 import com.linuxense.javadbf.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ua.aleks4ay.manufplan.domain.model.Journal;
+import ua.aleks4ay.manufplan.domain.dao_dbf.model_dbf.Journal;
 import ua.aleks4ay.manufplan.domain.tools.TimeConverter;
 
 import java.sql.Timestamp;

@@ -1,7 +1,7 @@
 package ua.aleks4ay.manufplan.domain.dao_dbf;
 
 import com.linuxense.javadbf.*;
-import ua.aleks4ay.manufplan.domain.model.Invoice;
+import ua.aleks4ay.manufplan.domain.dao_dbf.model_dbf.Invoice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
