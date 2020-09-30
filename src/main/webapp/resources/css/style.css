@@ -1,0 +1,35 @@
+TABLE {
+    border-collapse: collapse; /* Убираем двойные линии между ячейками */
+    /*width: 300px; !* Ширина таблицы *!*/
+    table-layout: fixed; /*запрет растягивать колонки*/
+    width: 95%
+}
+TH {
+    border: 1px solid #1a851e; /* Параметры рамки */
+    text-align: center; /* Выравнивание по центру */
+    padding: 4px; /* Поля вокруг текста */
+    background: rgba(255, 209, 0, 0.56); /* Цвет фона ячейки */
+    height: 40px; /* Высота ячеек */
+    vertical-align: middle; /* Выравнивание по нижнему краю */
+    padding: 0; /* Убираем поля вокруг текста */
+}
+TD {
+    border: 1px solid #1a851e; /* Параметры рамки */
+    text-align: center; /* Выравнивание по центру */
+    vertical-align: middle; /* Выравнивание по нижнему краю */
+    padding: 2px; /* Поля вокруг текста */
+    overflow-x: hidden;
+    overflow-y: visible;
+    word-wrap:break-word; /*Разбиение длинных слов*/
+}
+
+.green {
+    color: green;
+}
+.red {
+    color: red;
+}
+p {
+    background-color: rgba(140, 176, 255, 0.4);
+    color: red;
+}

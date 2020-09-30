@@ -5,6 +5,7 @@ public class Tmc {
     private String id; //techno_item.id
     private String tmcDescription; //techno_item.descr (by techno_item.id)
     private int balance; //techno_item.store_c
+    private int demand = 0; //techno_item.store_c
 
     public Tmc() {
     }
@@ -41,6 +42,14 @@ public class Tmc {
 
     public void setBalance(int balance) {
         this.balance = balance;
+    }
+
+    public int getDemand() {
+        return demand;
+    }
+
+    public void setDemand(int demand) {
+        this.demand = demand;
     }
 
     public Tmc getTmc() {

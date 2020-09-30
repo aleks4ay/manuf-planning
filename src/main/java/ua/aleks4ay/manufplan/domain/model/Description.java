@@ -138,6 +138,7 @@ public class Description implements Comparable{
         this.tmc = tmc;
     }
 
+
     public int getQuantityShipped() {
         int result = 0;
         if (invoices != null) {
@@ -146,6 +147,15 @@ public class Description implements Comparable{
             }
         }
         return result;
+    }
+
+    public String getNeedToShipment() {
+        int result = getQuantity() - getQuantityShipped();
+        return result > 0 ? String.valueOf(result) : "";
+    }
+
+    public int getDemand() {
+        return tmc.getDemand();
     }
 
 
@@ -165,6 +175,19 @@ public class Description implements Comparable{
         this.order.setDocNumber(docNumber);
     }
 
+    public String getDocInvoice() {
+        String result = "";
+        for (Invoice invoice : invoices) {
+            String dateInvoice = DateConverter.dateToString(order.getDateCreate().getTime());
+            result += invoice.getDocNomberInvoice() + " (" + dateInvoice + ") ";
+        }
+        return result;
+    }
+
+    public void setDocInvoice(String docInvoiceListString) {
+        //// TODO: 30.09.2020
+    }
+
     public String getManager() {
         return order.getManagerName();
     }
@@ -181,6 +204,24 @@ public class Description implements Comparable{
         this.order.setClientName(client);
     }
 
+    public int getBalance() {
+        return tmc.getBalance();
+    }
+
+    public void setBalance(int balance) {
+        tmc.setBalance(balance);
+    }
+
+
+
+    public String getDateCreate() {
+        return DateConverter.dateToString(order.getDateCreate().getTime());
+    }
+
+    public void setDateCreate(String dateCreate) {
+        this.order.setDateCreate(Timestamp.valueOf(dateCreate));
+    }
+
     public String getDateToFactory() {
         return DateConverter.dateToString(order.getDateToFactory().getTime());
     }
@@ -189,6 +230,17 @@ public class Description implements Comparable{
         this.order.setDateToFactory(Timestamp.valueOf(dateToFactory));
     }
 
+//    private String docNumberOrder; //6.1
+//    private String docNumberInvoise; //12
+//    private int position;
+//    private int quantity; //10
+//    private int quantityShipped; //11
+//    private int tmcBalance; //1.2
+//    private String descrTmc; //1.1
+//    private String descrSecond; //2
+
+//    private LocalDate dateCreate; //6.2
+//    private LocalDate dateToFactory; //9
 
 
     public void addInvoice(Invoice newInvoice) {

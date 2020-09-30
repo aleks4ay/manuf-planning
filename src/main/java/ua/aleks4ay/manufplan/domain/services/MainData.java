@@ -54,7 +54,7 @@ public class MainData {
         return descriptions;
     }
 
-    private List<Description> filterOnlyTechno(List<Description> descriptions, Map<String, Tmc> tmcMap) {
+    public List<Description> filterOnlyTechno(List<Description> descriptions, Map<String, Tmc> tmcMap) {
         List<Description> descriptionsAfterFilter = new ArrayList<>();
         for (Description description : descriptions) {
             String idTmcFromDescription = description.getTmc().getId();
@@ -120,12 +120,14 @@ public class MainData {
         Map<String, List<Description>> tmcMap = getTmcAsMapOfList(descriptionList);
         List<List<Description>> result =  new ArrayList<>();
         result.addAll(tmcMap.values());
+
+        fillDemand(result); //filling field Tmc.demand
         return result;
     }
 
-    public int getnumberOfDescription(List<List<Description>> descriptionListofList) {
+    public int getNumberOfDescription(List<List<Description>> descriptionListOfList) {
         int result = 0;
-        for (List<Description> descriptionList : descriptionListofList){
+        for (List<Description> descriptionList : descriptionListOfList){
             result += descriptionList.size();
         }
         return result;
@@ -136,5 +138,24 @@ public class MainData {
                 o1.getOrder().getDateToFactory().compareTo(o2.getOrder().getDateToFactory());
         Collections.sort(oldDescriptions, comparatorIdTmc);
         return oldDescriptions;
+    }
+
+    public void fillDemandOneDescription(List<Description> descriptionList) {
+        int demand = 0;
+        for (Description d : descriptionList) {
+            int tempDemand = d.getQuantity() - d.getQuantityShipped();
+            if (tempDemand > 0) {
+                demand += tempDemand;
+            }
+        }
+        for (Description d : descriptionList) {
+            d.getTmc().setDemand(demand);
+        }
+    }
+
+    public void fillDemand(List<List<Description>> descriptionListOfList) {
+        for (List<Description> descriptionList : descriptionListOfList) {
+            fillDemandOneDescription(descriptionList);
+        }
     }
 }

@@ -28,7 +28,7 @@ public class ViewData {
     MainData mainData = new MainData();
 
     public void printTmcMapToHtml(List<List<Description>> tmcListOfList) {
-        int numberOfReports = mainData.getnumberOfDescription(tmcListOfList);
+        int numberOfReports = mainData.getNumberOfDescription(tmcListOfList);
         Writer writer = null;
         try {
             writer = new FileWriter(new File(fileName));
@@ -135,76 +135,4 @@ public class ViewData {
         }
     }
 
-//    public void printHtml(List<Description> descriptions) {
-//        Writer writer = null;
-//        try {
-//            writer = new FileWriter(new File("print/file1.html"));
-//            writer.write("<!DOCTYPE html>" + "<html lang=\"en\">");
-//            writer.write("<head>" + "<meta charset=\"UTF-8\">");
-//            writer.write("<title>КИЙ-В</title>");
-//            writer.write("<link href=\"style1.css\" rel=\"stylesheet\" type=\"text/css\">");
-//            writer.write("</head>");
-//            writer.write("<body>");
-//            writer.write("<H1>Данные по Технологичке</H1>");
-//            writer.write("<div><table>");
-//
-//            writer.write("<tr>");
-//            writer.write("<th style=\"width: 50px;\">IdTmc</th>");
-//            writer.write("<th style=\"width: 280px;\">Т М С</th>");
-//            writer.write("<th style=\"width: 280px;\">Описание</th>");
-//            writer.write("<th style=\"width: 60px;\">Длина</th>");
-//            writer.write("<th style=\"width: 60px;\">Ширина</th>");
-//            writer.write("<th style=\"width: 60px;\">Высота</th>");
-//            writer.write("<th style=\"width: 30px;\">поз.</th>");
-//            writer.write("<th style=\"width: 90px;\">Заказ (дата)</th>");
-//            writer.write("<th style=\"width: 130px;\">Клиент</th>");
-//            writer.write("<th style=\"width: 120px;\">Менеджер</th>");
-//            writer.write("<th style=\"width: 90px;\">Дата (в произв.)</th>");
-//            writer.write("<th style=\"width: 30px;\">Кол-во</th>");
-//            writer.write("<th style=\"width: 40px;\">Отгру- жено</th>");
-//            writer.write("<th style=\"width: 150px;\">Инвойс\n(дата)</th>");
-////            writer.write("<th style=\"width: 40px;\">На складе</th>");
-//            writer.write("</tr>");
-//
-//            for (Description d : descriptions) {
-//                writer.write("<tr>");
-//                writer.write("<td>" + d.getTmc().getId() + "</td>");
-//                writer.write("<td>" + d.getTmc().getTmcDescription() + " (на&nbsp;складе&nbsp;=&nbsp;" +
-//                        d.getTmc().getBalance() + "&nbsp;шт&nbsp;)" + "</td>");
-//                writer.write("<td>" + d.getDescrSecond() + "</td>");
-//                writer.write("<td>" + d.getSizeA() + "</td>");
-//                writer.write("<td>" + d.getSizeB() + "</td>");
-//                writer.write("<td>" + d.getSizeC() + "</td>");
-//                writer.write("<td>" + d.getPosition() + "</td>");
-//                writer.write("<td>" + d.getOrder().getDocNumber() + " (" + dateToString(d.getOrder().getDateCreate().getTime()) +  ") </td>");
-//                writer.write("<td>" + d.getOrder().getClientName() + "</td>");
-//                writer.write("<td>" + d.getOrder().getManagerName() + "</td>");
-//                writer.write("<td>" + dateToString(d.getOrder().getDateToFactory().getTime()) + "</td>");
-//                writer.write("<td>" + d.getQuantity() + "</td>");
-//                writer.write("<td>" + d.getQuantityShipped() + "</td>");
-//                writer.write("<td>");
-//                Set<Invoice> invoices = d.getInvoices();
-//                for (Invoice invoice : invoices) {
-//                    writer.write(invoice.getDocNomberInvoice() + "(" + dateToString(invoice.getTimeInvoice().getTime()) + ") ");
-//                }
-//                writer.write("</td>");
-//                writer.write("</tr>");
-//
-//            }
-//
-//            writer.write("</table></div>");
-//            writer.write("");
-//            writer.write("");
-//            writer.write("</body>");
-//            writer.write("</html>");
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } finally {
-//            try {
-//                writer.close();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
 }

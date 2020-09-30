@@ -16,15 +16,7 @@ public class InvoiceReader {
 
     private static final Logger log = LoggerFactory.getLogger(getCurrentClassName());
 
-    public static void main(String[] args) {
-//        long start = System.currentTimeMillis();
-//        log.info("Start writing 'I N V O I C E'.");
-//
-//        List<Invoice> invoices = new InvoiceReader().getAll();
-//        invoices.forEach(System.out::println);
-//
-//        long end = System.currentTimeMillis();
-//        log.info("End writing 'I N V O I C E'. Time = {} c. ", (double)(end-start)/1000);
+/*    public static void main(String[] args) {
 
         Map<String, List<Invoice>> invoiceMap = new InvoiceReader().getAllAsMapOfList();
         int i=0;
@@ -36,7 +28,7 @@ public class InvoiceReader {
             System.out.println("*****************");
         }
         System.out.println(invoiceMap.size());
-    }
+    }*/
 
 
     public List<Invoice> getAll() {

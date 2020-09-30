@@ -69,13 +69,18 @@ public class ReportController {
 
         mainData.sortByDescriptionTmc(openDescriptions);
 
+        //****************
+        List<List<Description>> tmcListOfList = mainData.getTmcAsListOfList(openDescriptions);
+        tmcListOfList = mainData.sortByListDescriptionTmc(tmcListOfList);
+        //************
+
         DescriptionModelAtribute descriptionModelAtribute = new DescriptionModelAtribute();
         descriptionModelAtribute.setItemList(openDescriptions);
 
         ModelAndView modelAndView = new ModelAndView("report");
 
         modelAndView.addObject("testItems", descriptionModelAtribute);
-        modelAndView.addObject("numberOfReports", openDescriptions.size());
+        modelAndView.addObject("numberOfReports", String.valueOf(openDescriptions.size()));
         modelAndView.addObject("dayStart", MIN_DEY_TO_FACTORY.replace("-", "."));
         modelAndView.addObject("dayEnd", MAX_DEY_TO_FACTORY.replace("-", "."));
 
@@ -83,8 +88,42 @@ public class ReportController {
     }
 
     @PostMapping("/tmc")
-    public ModelAndView submit(@ModelAttribute("testItems") DescriptionModelAtribute descriptionModelAtribute) {
-        return new ModelAndView("report", "testItems", descriptionModelAtribute);
+    public ModelAndView submit(@ModelAttribute("testItems") DescriptionModelAtribute descriptionModelAtribute,
+                               @ModelAttribute("numberOfReports") String numberOfReport,
+                               @ModelAttribute("dayStart") String dayStart,
+                               @ModelAttribute("dayEnd") String dayEnd) {
+        ModelAndView modelAndView = new ModelAndView("report");
+
+        modelAndView.addObject("testItems", descriptionModelAtribute);
+        modelAndView.addObject("numberOfReports", numberOfReport);
+        modelAndView.addObject("dayStart", dayStart);
+        modelAndView.addObject("dayEnd", dayEnd);
+
+        return modelAndView;
+    }
+
+
+    @GetMapping("/tmcOne")
+    public ModelAndView viewOne() {
+        String fileNameView = "reportOne";
+
+        List<Description> allDescription = mainData.getAllDescription();
+        List<Description> openDescriptions = mainData.filterOpenWithDate(
+                allDescription, MIN_DEY_TO_FACTORY, MAX_DEY_TO_FACTORY );
+
+        mainData.sortByDescriptionTmc(openDescriptions);
+
+        DescriptionModelAtribute descriptionModelAtribute = new DescriptionModelAtribute();
+        descriptionModelAtribute.setItemList(openDescriptions);
+
+        ModelAndView modelAndView = new ModelAndView(fileNameView);
+
+        modelAndView.addObject("testItems", descriptionModelAtribute);
+        modelAndView.addObject("numberOfReports", String.valueOf(openDescriptions.size()));
+        modelAndView.addObject("dayStart", MIN_DEY_TO_FACTORY.replace("-", "."));
+        modelAndView.addObject("dayEnd", MAX_DEY_TO_FACTORY.replace("-", "."));
+
+        return modelAndView; //new ModelAndView("report", "testItems", descriptionModelAtribute);
     }
 
 }
