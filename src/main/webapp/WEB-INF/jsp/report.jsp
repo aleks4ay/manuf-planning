@@ -1,7 +1,9 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page language="java" pageEncoding="UTF-8"%>
+<%@page import="java.util.Set"%>
 
 <html>
 <head>
@@ -54,18 +56,23 @@
                 <td> ${element.dateToFactory} </td>
                 <td> ${element.quantity} </td>
                 <td> ${element.quantityShipped} </td>
-                <td> ${element.docInvoice} </td>
+                <td>
+                <c:set var="tempInvoice" value="${element.invoices}"/>
+                <c:if test="${!empty tempInvoice}">
+                    <c:set var="size" value="${fn:length(tempInvoice)}" />
+                    <c:forEach var="innerElement" items="${element.invoices}" varStatus="i">
+                        <c:if test="${i.first}"> size: ${size} </c:if>
+                        &mdash; ${innerElement.docNomberInvoice}<br/>
+                    </c:forEach>
+                </c:if>
+                </td>
+                    <%--<td> ${element.docInvoice} </td>--%>
                 <td> ${element.needToShipment} </td>
                 <td> ${element.demand} </td>
 
                     <%--<td><form:checkbox path="itemList[${status.index}].check" value="${element.check}"/></td>--%>
             </tr>
         </c:forEach>
-        <tr>
-            <td colspan="11">
-                <input type="submit" value="Save Changes" />
-            </td>
-        </tr>
     </table>
 <%--</form:form>--%>
 
