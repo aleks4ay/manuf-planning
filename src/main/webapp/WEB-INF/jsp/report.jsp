@@ -1,9 +1,10 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page language="java" pageEncoding="UTF-8"%>
-<%@page import="java.util.Set"%>
 
 <html>
 <head>
@@ -36,42 +37,46 @@
 
         </tr>
 
-        <c:forEach var="element" items="${testItems.itemList}" varStatus="status">
+        <c:forEach var="tmc" items="${testItems}" varStatus="status">
 
             <tr>
-                <td>
+                <c:set var="rowSpan" value="${fn:length(tmc.descriptions)}" />
+                <td rowspan="${rowSpan}">
                     <%--<input type = "hidden" name = "items[${status.index}].id" value="${element.id}">--%>
                     <label> ${status.index + 1} </label>
                 </td>
-                <td style="text-align: left;">
-                        ${element.tmcDescription} <b>(на&nbsp;складе&nbsp;${element.balance}&nbsp;шт&nbsp;)</b>
+                <td style="text-align: left;" rowspan="${rowSpan}">
+                        ${tmc.tmcDescription} <b>(на&nbsp;складе&nbsp;${tmc.balance}&nbsp;шт&nbsp;)</b>
                 </td>
-                <td style="text-align: left;"> ${element.descrSecond} </td>
-                <td> ${element.sizeA} </td>
-                <td> ${element.sizeB} </td>
-                <td> ${element.sizeC} </td>
-                <td style="text-align: left;"> ${element.docNumber}, поз.${element.position}, (${element.dateCreate})</td>
-                <td style="text-align: left;"> ${element.client} </td>
-                <td style="text-align: left;"> ${element.manager} </td>
-                <td> ${element.dateToFactory} </td>
-                <td> ${element.quantity} </td>
-                <td> ${element.quantityShipped} </td>
-                <td>
-                <c:set var="tempInvoice" value="${element.invoices}"/>
-                <c:if test="${!empty tempInvoice}">
-                    <c:set var="size" value="${fn:length(tempInvoice)}" />
-                    <c:forEach var="innerElement" items="${element.invoices}" varStatus="i">
-                        <c:if test="${i.first}"> size: ${size} </c:if>
-                        &mdash; ${innerElement.docNomberInvoice}<br/>
-                    </c:forEach>
-                </c:if>
-                </td>
-                    <%--<td> ${element.docInvoice} </td>--%>
-                <td> ${element.needToShipment} </td>
-                <td> ${element.demand} </td>
+                <td style="text-align: left;" rowspan="${rowSpan}"> ${tmc.descrSecond} </td>
+                <td rowspan="${rowSpan}"> ${tmc.sizeA} </td>
+                <td rowspan="${rowSpan}"> ${tmc.sizeB} </td>
+                <td rowspan="${rowSpan}"> ${tmc.sizeC} </td>
 
-                    <%--<td><form:checkbox path="itemList[${status.index}].check" value="${element.check}"/></td>--%>
-            </tr>
+                <c:forEach var="descr" items="${tmc.descriptions}" varStatus="pos" >
+                    <c:if test="${! pos.first}">
+                        <tr>
+                    </c:if>
+                    <td style="text-align: left;"> ${descr.docNumber}, поз.${descr.position}, (${descr.dateCreate})</td>
+                    <td style="text-align: left;"> ${descr.client} </td>
+                    <td style="text-align: left;"> ${descr.manager} </td>
+                    <td> ${descr.dateToFactory} </td>
+                    <td> ${descr.quantity} </td>
+                    <td> ${descr.quantityShipped} </td>
+                    <td>
+                    <%--<c:set var="tempInvoice" value="${descr.invoices}"/>--%>
+                    <c:if test="${!empty descr.invoices}">
+                        <c:forEach var="innerInvoice" items="${descr.invoices}" varStatus="i">
+                            ${innerInvoice.docNomberInvoice} (${innerInvoice.timeInvoiceString})<br/>
+                        </c:forEach>
+                    </c:if>
+                    </td>
+                    <td> ${descr.needToShipment} </td>
+                    <c:if test="${pos.first}">
+                        <td rowspan="${rowSpan}"> ${tmc.demand} </td>
+                    </c:if>
+                    </tr>
+                </c:forEach>
         </c:forEach>
     </table>
 <%--</form:form>--%>

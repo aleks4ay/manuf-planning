@@ -5,8 +5,11 @@ import org.slf4j.LoggerFactory;
 import ua.aleks4ay.manufplan.domain.dao.OrderDao;
 import ua.aleks4ay.manufplan.domain.dao.UtilDao;
 import ua.aleks4ay.manufplan.domain.model.Order;
+import ua.aleks4ay.manufplan.domain.tools.DateConverter;
 
 import java.sql.Connection;
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -17,17 +20,10 @@ public class OrderReader {
 
     private static final Logger log = LoggerFactory.getLogger(getCurrentClassName());
 
-    public static void main(String[] args) {
-        long start = System.currentTimeMillis();
-        log.info("Start writing 'O R D E R'.");
-
-        List<Order> descriptions = new OrderReader().getAll();
-        descriptions.forEach(System.out::println);
-
-        long end = System.currentTimeMillis();
-        log.info("End writing 'O R D E R'. Time = {} c. ", (double)(end-start)/1000);
+    public List<Order> getOrdersBetweenDates(LocalDate localDateStart, LocalDate localDateEnd) {
+        List<Order> orders = getAll();
+        return filterOrdersBetweenDates(orders, localDateStart, localDateEnd);
     }
-
 
     public List<Order> getAll() {
 
@@ -44,11 +40,26 @@ public class OrderReader {
         return orderList;
     }
 
-    public Map<String, Order> getAllAsMap() {
-        List<Order> result = getAll();
-        return result
+    public Map<String, Order> getAllAsMap(List<Order> orders) {
+        return orders
                 .stream()
                 .collect(Collectors.toMap(Order::getIdOrder, Order::getOrder));
     }
 
+    public Map<String, Order> getAllAsMap() {
+        List<Order> orders = getAll();
+        return orders
+                .stream()
+                .collect(Collectors.toMap(Order::getIdOrder, Order::getOrder));
+    }
+
+
+    public List<Order> filterOrdersBetweenDates(List<Order> orders, LocalDate localDateStart, LocalDate localDateEnd) {
+        Timestamp dayStart = DateConverter.localDateToTimestamp(localDateStart);
+        Timestamp dayEnd = DateConverter.localDateToTimestamp(localDateEnd);
+        return orders.stream()
+                .filter(o -> o.getDateToFactory().after(dayStart))
+                .filter(o -> o.getDateToFactory().before(dayEnd))
+                .collect(Collectors.toList());
+    }
 }

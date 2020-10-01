@@ -1,5 +1,7 @@
 package ua.aleks4ay.manufplan.domain.model;
 
+import ua.aleks4ay.manufplan.domain.tools.DateConverter;
+
 import java.sql.Timestamp;
 
 public class Invoice {
@@ -62,6 +64,10 @@ public class Invoice {
 
     public Timestamp getTimeInvoice() {
         return timeInvoice;
+    }
+
+    public String getTimeInvoiceString() {
+        return DateConverter.dateToString(timeInvoice.getTime());
     }
 
     public void setTimeInvoice(Timestamp timeInvoice) {

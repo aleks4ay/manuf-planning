@@ -6,12 +6,12 @@ import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Description implements Comparable{
+public class Description{
 
     private String id; //description.id
     private String idOrder; //description.iddoc
     private int position; //description.position
-//    private String idTmc; //description.id_tmc
+    private String idTmc; //description.id_tmc
     private int quantity; //description.quantity
     private String descrSecond; //description.descr_second
     private int sizeA; //description.size_a
@@ -21,20 +21,16 @@ public class Description implements Comparable{
     private Order order;
     private Manufacture manuf;
     private Set<Invoice> invoices = new HashSet<>();
-    private Tmc tmc;
-
-//    private int quantityShipped = 0;
-
 
     public Description() {
     }
 
-    public Description(String id, String idOrder, int position, int quantity, String descrSecond,
-                       int sizeA, int sizeB, int sizeC, Tmc tmc) {
+    public Description(String id, String idOrder, String idTmc, int position, int quantity, String descrSecond,
+                       int sizeA, int sizeB, int sizeC) {
         this.id = id;
         this.idOrder = idOrder;
+        this.idTmc = idTmc;
         this.position = position;
-        this.tmc = tmc;
         this.quantity = quantity;
         this.descrSecond = descrSecond;
         this.sizeA = sizeA;
@@ -56,6 +52,14 @@ public class Description implements Comparable{
 
     public void setIdOrder(String idOrder) {
         this.idOrder = idOrder;
+    }
+
+    public String getIdTmc() {
+        return idTmc;
+    }
+
+    public void setIdTmc(String idTmc) {
+        this.idTmc = idTmc;
     }
 
     public int getPosition() {
@@ -130,14 +134,6 @@ public class Description implements Comparable{
         this.invoices = invoices;
     }
 
-    public Tmc getTmc() {
-        return tmc;
-    }
-
-    public void setTmc(Tmc tmc) {
-        this.tmc = tmc;
-    }
-
 
     public int getQuantityShipped() {
         int result = 0;
@@ -149,22 +145,9 @@ public class Description implements Comparable{
         return result;
     }
 
-    public String getNeedToShipment() {
+    public int getNeedToShipment() {
         int result = getQuantity() - getQuantityShipped();
-        return result > 0 ? String.valueOf(result) : "";
-    }
-
-    public int getDemand() {
-        return tmc.getDemand();
-    }
-
-
-    public String getTmcDescription() {
-        return tmc.getTmcDescription();
-    }
-
-    public void setTmcDescription(String tmcDescription) {
-        this.tmc.setTmcDescription(tmcDescription);
+        return result > 0 ? result : 0;
     }
 
     public String getDocNumber() {
@@ -204,16 +187,6 @@ public class Description implements Comparable{
         this.order.setClientName(client);
     }
 
-    public int getBalance() {
-        return tmc.getBalance();
-    }
-
-    public void setBalance(int balance) {
-        tmc.setBalance(balance);
-    }
-
-
-
     public String getDateCreate() {
         return DateConverter.dateToString(order.getDateCreate().getTime());
     }
@@ -230,23 +203,9 @@ public class Description implements Comparable{
         this.order.setDateToFactory(Timestamp.valueOf(dateToFactory));
     }
 
-//    private String docNumberOrder; //6.1
-//    private String docNumberInvoise; //12
-//    private int position;
-//    private int quantity; //10
-//    private int quantityShipped; //11
-//    private int tmcBalance; //1.2
-//    private String descrTmc; //1.1
-//    private String descrSecond; //2
-
-//    private LocalDate dateCreate; //6.2
-//    private LocalDate dateToFactory; //9
-
-
     public void addInvoice(Invoice newInvoice) {
         invoices.add(newInvoice);
     }
-
 
     @Override
     public String toString() {
@@ -254,43 +213,15 @@ public class Description implements Comparable{
                 "id='" + id + '\'' +
                 ", idOrder='" + idOrder + '\'' +
                 ", position=" + position +
+                ", idTmc='" + idTmc + '\'' +
                 ", quantity=" + quantity +
-//                ", descrSecond='" + descrSecond + '\'' +
-//                ", sizeA=" + sizeA +
-//                ", sizeB=" + sizeB +
-//                ", sizeC=" + sizeC +
-//                ", order=" + order +
-//                ", manuf=" + manuf +
+                ", descrSecond='" + descrSecond + '\'' +
+                ", sizeA=" + sizeA +
+                ", sizeB=" + sizeB +
+                ", sizeC=" + sizeC +
+                ", order=" + order +
+                ", manuf=" + manuf +
                 ", invoices=" + invoices +
-                ", tmc=" + tmc +
                 '}';
-    }
-
-//    @Override
-//    public String toString() {
-//        return "Description{" +
-//                "id='" + id + '\'' +
-//                ", idOrder='" + idOrder + '\'' +
-//                ", position=" + position +
-//                ", idTmc='" + tmc.getId() + '\'' +
-//                ", quantity=" + quantity +
-//                ", descrSecond='" + descrSecond + '\'' +
-//                ", sizeA=" + sizeA +
-//                ", sizeB=" + sizeB +
-//                ", sizeC=" + sizeC +
-//                '}';
-//    }
-
-    public String printMainDescription() {
-        return  tmc.getId() + '\t' + tmc.getTmcDescription() + '\t' + id + '\t' + idOrder + '\t' +
-                order.getDocNumber() + '\t' + quantity + '\t' + getQuantityShipped() + '\t' + tmc.getBalance() + '\t' +
-                order.getDateCreate() + '\t' + order.getDateToFactory() + '\t' + descrSecond
-                + '\t' + order.getClientName() + '\t' + order.getManagerName();
-    }
-
-
-    @Override
-    public int compareTo(Object o) {
-        return 0;
     }
 }

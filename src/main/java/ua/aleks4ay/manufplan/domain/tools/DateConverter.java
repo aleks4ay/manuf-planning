@@ -1,6 +1,5 @@
 package ua.aleks4ay.manufplan.domain.tools;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -31,13 +30,6 @@ public final class DateConverter {
         calendarAfterPeriod.add(Calendar.DATE, Integer.valueOf(duration));
         return calendarAfterPeriod.getTimeInMillis();
     }
-
-/*    public static String dateFromLongToString(long millis) {
-        calendar.setTimeInMillis(millis);
-        String date = calendar.get(Calendar.DATE);
-        calendar.get(Calendar.HOUR);
-        calendar.get(Calendar.MINUTE);
-    }*/
 
     public static String dateToString(long millis) {
         if ( (Long)millis == null | millis == 0 ) {
@@ -88,6 +80,12 @@ public final class DateConverter {
         int year = Integer.parseInt(date[2]);
         LocalDateTime localDateTime = LocalDateTime.of(year, month, day, 0, 0);
         return Timestamp.valueOf(localDateTime);
+    }
+
+    public static Timestamp localDateToTimestamp (LocalDate localDate) {
+        LocalDateTime localDateTime = localDate.atStartOfDay();
+        Timestamp result = Timestamp.valueOf(localDateTime);
+        return result;
     }
 
 }

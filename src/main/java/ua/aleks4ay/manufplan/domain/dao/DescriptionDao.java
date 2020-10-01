@@ -40,10 +40,9 @@ public class DescriptionDao {
                 int sizeB = rs.getInt("size_b");
                 int sizeC = rs.getInt("size_c");
                 String idTmc = rs.getString("id_tmc");
-                Tmc tmc = new Tmc(idTmc);
 
-                Description description = new Description(id, idOrder, position, quantity, descrSecond,
-                sizeA, sizeB, sizeC, tmc);
+                Description description = new Description(id, idOrder, idTmc, position, quantity, descrSecond,
+                sizeA, sizeB, sizeC);
 
                 result.add(description);
             }
@@ -55,6 +54,4 @@ public class DescriptionDao {
         log.debug("Description not found.");
         return null;
     }
-
-
 }

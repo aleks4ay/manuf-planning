@@ -16,20 +16,6 @@ public class InvoiceReader {
 
     private static final Logger log = LoggerFactory.getLogger(getCurrentClassName());
 
-/*    public static void main(String[] args) {
-
-        Map<String, List<Invoice>> invoiceMap = new InvoiceReader().getAllAsMapOfList();
-        int i=0;
-        for (List<Invoice> invoiceList : invoiceMap.values()) {
-            i++;
-            for (Invoice inv : invoiceList) {
-                System.out.println(inv);
-            }
-            System.out.println("*****************");
-        }
-        System.out.println(invoiceMap.size());
-    }*/
-
 
     public List<Invoice> getAll() {
 
