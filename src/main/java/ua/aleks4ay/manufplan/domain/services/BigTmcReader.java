@@ -8,6 +8,7 @@ import ua.aleks4ay.manufplan.domain.model.*;
 
 import java.sql.Connection;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -23,10 +24,10 @@ public class BigTmcReader {
     }
 
     public static void main(String[] args) {
-        new BigTmcReader().getbigTmcListAfterSorting(LocalDate.of(2020, 9,13), LocalDate.of(2020,10,30));
+        new BigTmcReader().getbigTmcListAfterSorting(LocalDateTime.of(2020, 9,13, 0, 0), LocalDateTime.of(2020,10,30, 23,59));
     }
 
-    public List<BigTmc> getbigTmcListAfterSorting(LocalDate dateStart, LocalDate dateEnd) {
+    public List<BigTmc> getbigTmcListAfterSorting(LocalDateTime dateStart, LocalDateTime dateEnd) {
         OrderReader orderReader = new OrderReader();
         List<Order> orders = orderReader.getOrdersBetweenDates(dateStart, dateEnd);
         Map<String, Order> orderMap = orderReader.getAllAsMap(orders);

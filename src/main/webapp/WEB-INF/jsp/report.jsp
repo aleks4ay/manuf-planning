@@ -14,7 +14,35 @@
 <body>
 <h3><a href="/">Home</a></h3>
 
-<H1>Данные по Технологичке, записей ${numberOfReports} <i> (${dayStart} - ${dayEnd})</i> </H1>
+<H1>Данные по Технологичке, записей ${numberOfReports} <i>(${beginStringDay} - ${endStringDay}) </i>
+</H1>
+
+
+<form:form method="POST" action="/tmcChange" modelAttribute="period">
+    <%--<table style="font-size: 18px; text-align: center">--%>
+        <%--<tr>--%>
+            <%--<input type="datetime-local" value="${period.beginDay}" name="beginDay" required>--%>
+            <%--<td>--%>
+                <form:input path="beginDay" />
+<%--</td>--%>
+        <%--</tr>--%>
+        <%--<tr>--%>
+            <%--<input type="datetime-local" value="${period.endDay}" name="endDay" required>--%>
+            <%--<td>--%>
+                <form:input path="endDay" />
+            <%--</td>--%>
+        <%--</tr>--%>
+        <%--<tr>--%>
+            <td colspan="2">
+                <input type="submit" value="Save Changes" />
+            <%--</td>--%>
+        <%--</tr>--%>
+    <%--</table>--%>
+</form:form>
+
+
+
+
 
 <%--<form:form method="POST" action="/tmc" modelAttribute="testItems">--%>
     <table style="font-size: 14px; text-align: center">

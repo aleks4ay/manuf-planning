@@ -10,6 +10,7 @@ import ua.aleks4ay.manufplan.domain.tools.DateConverter;
 import java.sql.Connection;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -20,7 +21,7 @@ public class OrderReader {
 
     private static final Logger log = LoggerFactory.getLogger(getCurrentClassName());
 
-    public List<Order> getOrdersBetweenDates(LocalDate localDateStart, LocalDate localDateEnd) {
+    public List<Order> getOrdersBetweenDates(LocalDateTime localDateStart, LocalDateTime localDateEnd) {
         List<Order> orders = getAll();
         return filterOrdersBetweenDates(orders, localDateStart, localDateEnd);
     }
@@ -54,9 +55,9 @@ public class OrderReader {
     }
 
 
-    public List<Order> filterOrdersBetweenDates(List<Order> orders, LocalDate localDateStart, LocalDate localDateEnd) {
-        Timestamp dayStart = DateConverter.localDateToTimestamp(localDateStart);
-        Timestamp dayEnd = DateConverter.localDateToTimestamp(localDateEnd);
+    public List<Order> filterOrdersBetweenDates(List<Order> orders, LocalDateTime start, LocalDateTime end) {
+        Timestamp dayStart = Timestamp.valueOf(start);
+        Timestamp dayEnd = Timestamp.valueOf(end);
         return orders.stream()
                 .filter(o -> o.getDateToFactory().after(dayStart))
                 .filter(o -> o.getDateToFactory().before(dayEnd))
