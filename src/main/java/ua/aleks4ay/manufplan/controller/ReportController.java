@@ -2,54 +2,46 @@ package ua.aleks4ay.manufplan.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ua.aleks4ay.manufplan.domain.model.BigTmc;
 import ua.aleks4ay.manufplan.domain.services.BigTmcReader;
+import ua.aleks4ay.manufplan.domain.tools.DateConverter;
 import ua.aleks4ay.manufplan.domain.web.Period;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class ReportController {
 
-    private LocalDateTime beginDay = LocalDateTime.of(2020, 4, 27, 0, 0);
-    private LocalDateTime endDay = LocalDateTime.of(2020, 10, 30, 23, 59);
+    private String beginDay = "20.04.2020";
+    private String endDay = DateConverter.getNowDateString(); //"20.10.2020";
 
     public ReportController() {
     }
 
-    public void setBeginDay(LocalDateTime beginDay) {
-        this.beginDay = beginDay;
-    }
-
-    public void setEndDay(LocalDateTime endDay) {
-        this.endDay = endDay;
-    }
-
     @GetMapping("/")
     public String getStart() {
-//        return "redirect:report";
-        return "index";
+        return "redirect:/tmc";
+//        return "index";
     }
 
     @GetMapping("/tmc")
     public ModelAndView mainView() {
+        Timestamp start = DateConverter.getTimestampFromString(beginDay);
+        Timestamp end = DateConverter.getTimestampFromString(endDay);
         BigTmcReader bigTmcReader = new BigTmcReader();
-        List<BigTmc> allSortedTmc = bigTmcReader.getbigTmcListAfterSorting(beginDay, endDay);
+        List<BigTmc> allSortedTmc = bigTmcReader.getbigTmcListAfterSorting(start, end);
         int numberOfReports = bigTmcReader.getSizeOfDescription(allSortedTmc);
 
-        ModelAndView modelAndView = new ModelAndView("report");
+        ModelAndView modelAndView = new ModelAndView("all_tmc");
 
         modelAndView.addObject("testItems", allSortedTmc);
         modelAndView.addObject("numberOfReports", numberOfReports);
-        modelAndView.addObject("beginStringDay", beginDay.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
-        modelAndView.addObject("endStringDay", endDay.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
+        modelAndView.addObject("beginStringDay", beginDay); //beginDay.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")
+        modelAndView.addObject("endStringDay", endDay);
         modelAndView.addObject("period", new Period(beginDay, endDay));
 
         return modelAndView;
@@ -57,32 +49,55 @@ public class ReportController {
 
     @PostMapping("/tmcChange")
     public String changeDate(@ModelAttribute Period period, Model model) {
-        setBeginDay(period.getBeginDay());
-        setEndDay(period.getEndDay());
-        System.out.println(period.getBeginDay());
-        System.out.println(period.getEndDay());
+        beginDay = period.getBeginDay();
+        endDay = period.getEndDay();
 
         return "redirect:/tmc";
     }
 
 
-//    @PostMapping("/tmc")
-//    public String changeDate(@ModelAttribute("minDay")LocalDateTime minDay,
-//                             @ModelAttribute("maxDay")LocalDateTime maxDay) {
-//        setBeginDay(minDay.toLocalDate());
-//        setEndDay(maxDay.toLocalDate());
-
-        /*BigTmcReader bigTmcReader = new BigTmcReader();
-        List<BigTmc> allSortedTmc = bigTmcReader.getbigTmcListAfterSorting(beginDay, endDay);
+    @GetMapping("/tmc/one/{id}")
+    public ModelAndView viewOne(@PathVariable("id") String id) {
+        Timestamp start = DateConverter.getTimestampFromString(beginDay);
+        Timestamp end = DateConverter.getTimestampFromString(endDay);
+        BigTmcReader bigTmcReader = new BigTmcReader();
+        List<BigTmc> allSortedTmc = bigTmcReader.getbigTmcListAfterSorting(start, end);
         int numberOfReports = bigTmcReader.getSizeOfDescription(allSortedTmc);
 
-        ModelAndView modelAndView = new ModelAndView("report");
 
-        modelAndView.addObject("testItems", allSortedTmc);
+        BigTmc bigTmc = bigTmcReader.getOne(allSortedTmc, id);
+//        List<BigTmc> oneTmc = new ArrayList<>();
+//        oneTmc.add(bigTmc);
+
+        ModelAndView modelAndView = new ModelAndView("one_tmc");
+
+        modelAndView.addObject("oneTmc", bigTmc);
         modelAndView.addObject("numberOfReports", numberOfReports);
-        modelAndView.addObject("dayStart", beginDay);
-        modelAndView.addObject("dayEnd", endDay);
-*/
-//        return "/tmc";
+        modelAndView.addObject("beginStringDay", beginDay); //beginDay.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")
+        modelAndView.addObject("endStringDay", endDay);
+        modelAndView.addObject("period", new Period(beginDay, endDay));
+
+        return modelAndView;
+    }
+//
+//    @GetMapping("/tmc/one/change/{id}")
+//    public ModelAndView getBooking(@PathVariable("id") String id) {
+//        Timestamp start = DateConverter.getTimestampFromString(beginDay);
+//        Timestamp end = DateConverter.getTimestampFromString(endDay);
+//        BigTmcReader bigTmcReader = new BigTmcReader();
+//        List<BigTmc> allSortedTmc = bigTmcReader.getbigTmcListAfterSorting(start, end);
+//        int numberOfReports = bigTmcReader.getSizeOfDescription(allSortedTmc);
+//
+//
+//        BigTmc bigTmc = bigTmcReader.getOne(allSortedTmc, id);
+//        ModelAndView modelAndView = new ModelAndView("one_tmc");
+//
+//        modelAndView.addObject("oneTmc", bigTmc);
+//        modelAndView.addObject("numberOfReports", numberOfReports);
+//        modelAndView.addObject("beginStringDay", beginDay); //beginDay.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")
+//        modelAndView.addObject("endStringDay", endDay);
+//        modelAndView.addObject("period", new Period(beginDay, endDay));
+//
+//        return modelAndView;
 //    }
 }

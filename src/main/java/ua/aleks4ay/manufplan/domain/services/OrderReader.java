@@ -5,12 +5,9 @@ import org.slf4j.LoggerFactory;
 import ua.aleks4ay.manufplan.domain.dao.OrderDao;
 import ua.aleks4ay.manufplan.domain.dao.UtilDao;
 import ua.aleks4ay.manufplan.domain.model.Order;
-import ua.aleks4ay.manufplan.domain.tools.DateConverter;
 
 import java.sql.Connection;
 import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -21,9 +18,9 @@ public class OrderReader {
 
     private static final Logger log = LoggerFactory.getLogger(getCurrentClassName());
 
-    public List<Order> getOrdersBetweenDates(LocalDateTime localDateStart, LocalDateTime localDateEnd) {
+    public List<Order> getOrdersBetweenDates(Timestamp dateStart, Timestamp dateEnd) {
         List<Order> orders = getAll();
-        return filterOrdersBetweenDates(orders, localDateStart, localDateEnd);
+        return filterOrdersBetweenDates(orders, dateStart, dateEnd);
     }
 
     public List<Order> getAll() {
@@ -55,12 +52,10 @@ public class OrderReader {
     }
 
 
-    public List<Order> filterOrdersBetweenDates(List<Order> orders, LocalDateTime start, LocalDateTime end) {
-        Timestamp dayStart = Timestamp.valueOf(start);
-        Timestamp dayEnd = Timestamp.valueOf(end);
+    public List<Order> filterOrdersBetweenDates(List<Order> orders, Timestamp start, Timestamp end) {
         return orders.stream()
-                .filter(o -> o.getDateToFactory().after(dayStart))
-                .filter(o -> o.getDateToFactory().before(dayEnd))
+                .filter(o -> o.getDateToFactory().after(start))
+                .filter(o -> o.getDateToFactory().before(end))
                 .collect(Collectors.toList());
     }
 }

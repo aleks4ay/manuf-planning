@@ -15,6 +15,10 @@ public final class DateConverter {
         return new Date().getTime();
     }
 
+    public static String getNowDateString(){
+        return dateToString(new Date().getTime());
+    }
+
     public static int getYear(long millis) {
         calendar.setTimeInMillis(millis);
         return calendar.get(Calendar.YEAR);
@@ -73,14 +77,32 @@ public final class DateConverter {
         return time;
     }
 
-    public static Timestamp getTimestampFromString(String DeyMonthYearDividedDash) {
-        String[] date = DeyMonthYearDividedDash.split("-");
+    public static Timestamp getTimestampFromString(String DeyMonthYearDividedDashOrPoint) {
+//        String[] date = DeyMonthYearDividedDashOrPoint.split("-");
+        String[] date = DeyMonthYearDividedDashOrPoint.split("\\.");
+        if (date.length < 2) {
+            date = DeyMonthYearDividedDashOrPoint.split("-");
+        }
         int day = Integer.parseInt(date[0]);
         int month = Integer.parseInt(date[1]);
         int year = Integer.parseInt(date[2]);
         LocalDateTime localDateTime = LocalDateTime.of(year, month, day, 0, 0);
         return Timestamp.valueOf(localDateTime);
     }
+
+    public static LocalDate getLocalDateFromString(String DeyMonthYearDividedDashOrPoint) {
+        String[] date = DeyMonthYearDividedDashOrPoint.split("\\.");
+        if (date.length < 2) {
+            date = DeyMonthYearDividedDashOrPoint.split("-");
+        }
+        int day = Integer.parseInt(date[0]);
+        int month = Integer.parseInt(date[1]);
+        int year = Integer.parseInt(date[2]);
+        LocalDate localDate = LocalDate.of(year, month, day);
+        return localDate;
+    }
+
+
 
     public static Timestamp localDateToTimestamp (LocalDate localDate) {
         LocalDateTime localDateTime = localDate.atStartOfDay();

@@ -1,32 +1,30 @@
 package ua.aleks4ay.manufplan.domain.web;
 
-import java.time.LocalDateTime;
-
 public class Period {
-    private LocalDateTime beginDay;
-    private LocalDateTime endDay;
+    private String beginDay;
+    private String endDay;
 
     public Period() {
     }
 
-    public Period(LocalDateTime beginDay, LocalDateTime endDay) {
+    public Period(String beginDay, String endDay) {
         this.beginDay = beginDay;
         this.endDay = endDay;
     }
 
-    public LocalDateTime getBeginDay() {
+    public String getBeginDay() {
         return beginDay;
     }
 
-    public void setBeginDay(LocalDateTime beginDay) {
+    public void setBeginDay(String beginDay) {
         this.beginDay = beginDay;
     }
 
-    public LocalDateTime getEndDay() {
+    public String getEndDay() {
         return endDay;
     }
 
-    public void setEndDay(LocalDateTime endDay) {
+    public void setEndDay(String endDay) {
         this.endDay = endDay;
     }
 }

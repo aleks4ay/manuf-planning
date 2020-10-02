@@ -1,7 +1,7 @@
 TABLE {
     border-collapse: collapse; /* Убираем двойные линии между ячейками */
-    /*width: 300px; !* Ширина таблицы *!*/
     table-layout: fixed; /*запрет растягивать колонки*/
+    width: 1500px; /* Ширина таблицы */
     width: 95%
 }
 TH {

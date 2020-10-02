@@ -7,6 +7,7 @@ import ua.aleks4ay.manufplan.domain.dao.UtilDao;
 import ua.aleks4ay.manufplan.domain.model.*;
 
 import java.sql.Connection;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -23,11 +24,7 @@ public class BigTmcReader {
         utilDao = new UtilDao();
     }
 
-    public static void main(String[] args) {
-        new BigTmcReader().getbigTmcListAfterSorting(LocalDateTime.of(2020, 9,13, 0, 0), LocalDateTime.of(2020,10,30, 23,59));
-    }
-
-    public List<BigTmc> getbigTmcListAfterSorting(LocalDateTime dateStart, LocalDateTime dateEnd) {
+    public List<BigTmc> getbigTmcListAfterSorting(Timestamp dateStart, Timestamp dateEnd) {
         OrderReader orderReader = new OrderReader();
         List<Order> orders = orderReader.getOrdersBetweenDates(dateStart, dateEnd);
         Map<String, Order> orderMap = orderReader.getAllAsMap(orders);
@@ -126,5 +123,14 @@ public class BigTmcReader {
             }
             bigTmc.setDemand(demand);
         }
+    }
+
+    public BigTmc getOne(List<BigTmc> allSortedTmc, String id) {
+        for (BigTmc bigTmc : allSortedTmc) {
+            if (bigTmc.getId().equals(id)) {
+                return bigTmc;
+            }
+        }
+        return null;
     }
 }
