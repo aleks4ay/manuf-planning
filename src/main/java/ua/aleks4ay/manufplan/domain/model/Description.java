@@ -19,7 +19,7 @@ public class Description{
     private int sizeC; //description.size_c
 
     private Order order;
-    private Manufacture manuf;
+    private ManufactureTechno manuf;
     private Set<Invoice> invoices = new HashSet<>();
 
     public Description() {
@@ -118,11 +118,11 @@ public class Description{
         this.order = order;
     }
 
-    public Manufacture getManuf() {
+    public ManufactureTechno getManuf() {
         return manuf;
     }
 
-    public void setManuf(Manufacture manuf) {
+    public void setManuf(ManufactureTechno manuf) {
         this.manuf = manuf;
     }
 

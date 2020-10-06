@@ -15,6 +15,7 @@ public class OrderDao {
     private Connection connPostgres;
     private static final Logger log = LoggerFactory.getLogger(getCurrentClassName());
     private static final String SQL_GET_ALL = "SELECT * FROM orders;";
+    private static final String SQL_GET_ONE = "SELECT * FROM orders WHERE iddoc = ?;";
 
     public OrderDao(Connection conn) {
         this.connPostgres = conn;
@@ -53,4 +54,31 @@ public class OrderDao {
     }
 
 
+    public Order getOneById(String idOrder) {
+        try {
+            PreparedStatement ps = connPostgres.prepareStatement(SQL_GET_ONE);
+            ps.setString(1, idOrder);
+            ResultSet rs = ps.executeQuery();
+
+            log.debug("Select all 'Order'. SQL = {}.", SQL_GET_ONE);
+
+            while (rs.next()) {
+                Timestamp dateCreate = rs.getTimestamp("t_create");
+                Timestamp dateToFactory = rs.getTimestamp("t_factory");
+                Timestamp dateToShipment = rs.getTimestamp("t_end");
+                String docNumber = rs.getString("docno");
+                String clientName = rs.getString("client_name");
+                String managerName = rs.getString("manager_name");
+
+                Order order = new Order(idOrder, dateCreate, dateToFactory, dateToShipment,
+                        docNumber, clientName, managerName);
+                log.debug("Was read Order with id {}.", idOrder);
+                return order;
+            }
+        } catch (SQLException e) {
+            log.warn("Exception during reading Order with id {}.", idOrder, e);
+        }
+        log.debug("Order not found.");
+        return null;
+    }
 }

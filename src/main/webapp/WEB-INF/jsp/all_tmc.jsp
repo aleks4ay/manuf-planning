@@ -43,6 +43,9 @@
             background: #F6F6f6;
             border-radius: 8px;
         }
+        TR:hover {
+            background: #def4f6;
+        }
     </style>
 </head>
 <body>

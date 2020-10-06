@@ -110,4 +110,15 @@ public final class DateConverter {
         return result;
     }
 
+    public static boolean isTheSameDay(Timestamp t1, Timestamp t2) {
+        Calendar c1 = Calendar.getInstance();
+        Calendar c2 = Calendar.getInstance();
+        c1.setTimeInMillis(t1.getTime());
+        c2.setTimeInMillis(t2.getTime());
+        boolean yearEquals = c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR);
+        boolean monthEquals = c1.get(Calendar.MONTH) == c2.get(Calendar.MONTH);
+        boolean dayEquals = c1.get(Calendar.DAY_OF_MONTH) == c2.get(Calendar.DAY_OF_MONTH);
+        return yearEquals & monthEquals & dayEquals;
+    }
+
 }

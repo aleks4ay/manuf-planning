@@ -48,7 +48,7 @@ public class InvoiceDao {
         } catch (SQLException e) {
             log.warn("Exception during reading all 'Invoice'.", e);
         }
-        log.debug("Invoice not found.");
+        log.debug("Invoices not found.");
         return null;
     }
 }

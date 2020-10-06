@@ -34,19 +34,14 @@
             overflow-y: visible;
             word-wrap:break-word; /*Разбиение длинных слов*/
         }
-        .date {
-            width: 150px;
-            font-size: 18px;
-            padding: 6px 0 4px 10px;
-            border: 1px solid #cecece;
-            background: #F6F6f6;
-            border-radius: 8px;
+        TR:hover {
+            background: #def4f6;
         }
     </style>
 </head>
 <body>
 
-    <H1>Данные по Технологичке, записей ${numberOfReports} <i>(${beginStringDay} - ${endStringDay}) </i> </H1>
+    <H1>Данные по одной позиции ТМЦ </H1>
 
     <h3><a href="/tmc">Общая таблица технологической продукции</a> </h3>
     <div>
@@ -128,5 +123,133 @@
             </c:forEach>
         </table>
     </div>
+    <br/>
+
+    <div>
+        <table style="font-size: 14px; text-align: center">
+            <tr class="red" style="height: 2.8em">
+                <th width="20%">Выпуск продукции №</th>
+                <th width="10%">Дата</th>
+                <th width="10%">Количество</th>
+                <th width="15%">Закреплен за  &nbsp;заказом&nbsp;</th>
+                <th width="15%">Резерв для заказа</th>
+                <th width="12%">Осталось не распределено</th>
+                <th>Бронь</th>
+            </tr>
+
+            <c:forEach var="manuf" items="${manufactures}" varStatus="pos">
+                <tr>
+                    <td style="text-align: left;"> ${manuf.docNumber}, поз.${manuf.position} </td>
+                    <td> ${manuf.timeManufactureString} </td>
+                    <td> ${manuf.quantity} </td>
+                    <td> ${manuf.docNumberOrder} </td>
+                    <td> </td>
+                    <td> </td>
+                    <td> </td>
+                </tr>
+            </c:forEach>
+        </table>
+    </div>
+    <br/>
+
+
+    <div>
+        <table style="font-size: 14px; text-align: center; width: 30%">
+            <tr class="red" style="height: 2.8em">
+                <th width="40%">Описание</th>
+                <th width="22%">Выпуск продукции №</th>
+                <th width="14%">Дата</th>
+                <th width="9%">Коли- чество</th>
+                <th width="15%">Закреплен за  &nbsp;заказом&nbsp;</th>
+            </tr>
+
+
+            <tr>
+                <c:forEach var="manuf_date" items="${manuf1}" varStatus="pos">
+                    <c:if test="${pos.first}">
+                        <td colspan="5"> Выпущено ${manuf_date.timeManufactureString} </td>
+                    </c:if>
+                </c:forEach>
+            </tr>
+            <c:forEach var="manuf_one" items="${manuf1}" varStatus="pos">
+                <tr>
+                    <td style="text-align: left;"> ${manuf_one.tmcDescr}</td>
+                    <td style="text-align: left;"> ${manuf_one.docNumber}, поз.${manuf_one.position} </td>
+                    <td> ${manuf_one.timeManufactureString} </td>
+                    <td> ${manuf_one.quantity} </td>
+                    <td> ${manuf_one.docNumberOrder} </td>
+                </tr>
+            </c:forEach>
+
+            <tr>
+                <c:forEach var="manuf_date" items="${manuf2}" varStatus="pos">
+                    <c:if test="${pos.first}">
+                        <td colspan="5"> Выпущено ${manuf_date.timeManufactureString} </td>
+                    </c:if>
+                </c:forEach>
+            </tr>
+            <c:forEach var="manuf_two" items="${manuf2}" varStatus="pos">
+                <tr>
+                    <td style="text-align: left;"> ${manuf_two.tmcDescr}</td>
+                    <td style="text-align: left;"> ${manuf_two.docNumber}, поз.${manuf_two.position} </td>
+                    <td> ${manuf_two.timeManufactureString} </td>
+                    <td> ${manuf_two.quantity} </td>
+                    <td> ${manuf_two.docNumberOrder} </td>
+                </tr>
+            </c:forEach>
+
+            <tr>
+                <c:forEach var="manuf_date" items="${manuf3}" varStatus="pos">
+                    <c:if test="${pos.first}">
+                        <td colspan="5"> Выпущено ${manuf_date.timeManufactureString} </td>
+                    </c:if>
+                </c:forEach>
+            </tr>
+            <c:forEach var="manuf_three" items="${manuf3}" varStatus="pos">
+                <tr>
+                    <td style="text-align: left;"> ${manuf_three.tmcDescr}</td>
+                    <td style="text-align: left;"> ${manuf_three.docNumber}, поз.${manuf_three.position} </td>
+                    <td> ${manuf_three.timeManufactureString} </td>
+                    <td> ${manuf_three.quantity} </td>
+                    <td> ${manuf_three.docNumberOrder} </td>
+                </tr>
+            </c:forEach>
+
+            <tr>
+                <c:forEach var="manuf_date" items="${manuf4}" varStatus="pos">
+                    <c:if test="${pos.first}">
+                        <td colspan="5"> Выпущено ${manuf_date.timeManufactureString} </td>
+                    </c:if>
+                </c:forEach>
+            </tr>
+            <c:forEach var="manuf_four" items="${manuf4}" varStatus="pos">
+                <tr>
+                    <td style="text-align: left;"> ${manuf_four.tmcDescr}</td>
+                    <td style="text-align: left;"> ${manuf_four.docNumber}, поз.${manuf_four.position} </td>
+                    <td> ${manuf_four.timeManufactureString} </td>
+                    <td> ${manuf_four.quantity} </td>
+                    <td> ${manuf_four.docNumberOrder} </td>
+                </tr>
+            </c:forEach>
+
+            <tr>
+                <c:forEach var="manuf_date" items="${manuf5}" varStatus="pos">
+                    <c:if test="${pos.first}">
+                        <td colspan="5"> Выпущено ${manuf_date.timeManufactureString} </td>
+                    </c:if>
+                </c:forEach>
+            </tr>
+            <c:forEach var="manuf_five" items="${manuf5}" varStatus="pos">
+                <tr>
+                    <td style="text-align: left;"> ${manuf_five.tmcDescr}</td>
+                    <td style="text-align: left;"> ${manuf_five.docNumber}, поз.${manuf_five.position} </td>
+                    <td> ${manuf_five.timeManufactureString} </td>
+                    <td> ${manuf_five.quantity} </td>
+                    <td> ${manuf_five.docNumberOrder} </td>
+                </tr>
+            </c:forEach>
+        </table>
+    </div>
+
 </body>
 </html>

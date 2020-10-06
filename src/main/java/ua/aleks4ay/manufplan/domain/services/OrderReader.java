@@ -38,6 +38,21 @@ public class OrderReader {
         return orderList;
     }
 
+    public Order getOneById(String idOrder) {
+
+        UtilDao utilDao = new UtilDao();
+        Connection connPostgres = utilDao.getConnPostgres();
+
+        OrderDao orderDao = new OrderDao(connPostgres);
+
+        Order order = orderDao.getOneById(idOrder);
+
+        utilDao.closeConnection(connPostgres);
+        log.info("Was read Order with id {}.", idOrder);
+
+        return order;
+    }
+
     public Map<String, Order> getAllAsMap(List<Order> orders) {
         return orders
                 .stream()
