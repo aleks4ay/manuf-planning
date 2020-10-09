@@ -15,7 +15,7 @@
             border-collapse: collapse; /* Убираем двойные линии между ячейками */
             table-layout: fixed; /*запрет растягивать колонки*/
             /*width: 1500px; !* Ширина таблицы *!*/
-            width: 83%
+            width: 100%
         }
         TH {
             border: 1px solid #1a851e; /* Параметры рамки */
@@ -54,18 +54,26 @@
 </H1>
 
 <%--<h3><a href="/tmc">Общая таблица технологической продукции</a> </h3>--%>
-
-    <form:form method="POST" action="/tmcChange" modelAttribute="period">
-        <div>
+<div style="display: table;">
+    <div style="display: inline-block">
+        <form:form method="POST" action="/tmcChange" modelAttribute="period">
             От&nbsp;
             <form:input path="beginDay" cssClass="date"/>
             &nbsp;до&nbsp;
             <form:input path="endDay" cssClass="date"/>
             <input style="display: none; background: #FFf; border: 0px solid #cecece;" type="submit" value="Применить"  />
-        </div>
-
-    </form:form>
-
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <form:checkbox cssStyle="transform:scale(1.5);" path="epicenter" value="epicenter" disabled="true"
+                           label="Показывать Эпицентр"/>
+        </form:form>
+    </div>
+    &nbsp;
+    <div  style="display: inline-block">
+        <form:form method="POST" action="/epicenterChange" >
+            <input cssClass="date" type="submit" value="Показать/скрыть" />
+        </form:form>
+    </div>
+</div>
     <table style="font-size: 14px; text-align: center">
         <tr class="red" style="height: 1.8em">
             <th width="1.88%">№</th>

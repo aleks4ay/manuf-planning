@@ -22,6 +22,24 @@ public class BigTmcReader {
         utilDao = new UtilDao();
     }
 
+    public List<BigTmc> removeEpicenter(List<BigTmc> listBefore) {
+        List<BigTmc> listAfter = new ArrayList<>();
+        for (BigTmc bigTmc : listBefore) {
+            List<Description> descriptions = bigTmc.getDescriptions();
+            List<Description> newDescriptionList = new ArrayList<>();
+            for (Description descr : descriptions) {
+                if (! descr.getClient().contains("Епіцентр")) {
+                    newDescriptionList.add(descr);
+                }
+            }
+            if (newDescriptionList.size() > 0) {
+                bigTmc.setDescriptions(newDescriptionList);
+                listAfter.add(bigTmc);
+            }
+        }
+        return listAfter;
+    }
+
     public List<BigTmc> getbigTmcListAfterSorting(Timestamp dateStart, Timestamp dateEnd) {
         OrderReader orderReader = new OrderReader();
         List<Order> orders = orderReader.getOrdersBetweenDates(dateStart, dateEnd);

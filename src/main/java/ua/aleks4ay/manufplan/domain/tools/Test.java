@@ -2,6 +2,9 @@ package ua.aleks4ay.manufplan.domain.tools;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Test {
 
@@ -9,7 +12,7 @@ public class Test {
     private static final String MAX_DEY_TO_SHIPMENT = "2020-08-15";
 
     public static void main(String[] args) {
-        test3();
+        test4();
     }
 
 
@@ -47,5 +50,17 @@ public class Test {
 
     public static void test3() {
         System.out.println(DateConverter.getNowDateString());
+    }
+
+    public static void test4() {
+        List<String> list = Arrays.asList("t0 Епіцентр erer", "t1", "t2 Епіцентр", "Епіцентр t3", "t4", "t5");
+        List<String> result = new ArrayList();
+
+        for (int i = 0; i < list.size(); i++) {
+            if (! list.get(i).contains("Епіцентр")) {
+                result.add(list.get(i));
+            }
+        }
+        result.forEach(System.out::println);
     }
 }

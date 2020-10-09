@@ -22,6 +22,7 @@ public class ReportController {
 
     private String beginDay = "20.04.2020";
     private String endDay = DateConverter.getNowDateString();
+    private boolean epicenter = true;
 
     public ReportController() {
     }
@@ -38,6 +39,11 @@ public class ReportController {
         Timestamp end = DateConverter.getTimestampFromString(endDay);
         BigTmcReader bigTmcReader = new BigTmcReader();
         List<BigTmc> allSortedTmc = bigTmcReader.getbigTmcListAfterSorting(start, end);
+
+        if (! epicenter) {
+            allSortedTmc = bigTmcReader.removeEpicenter(allSortedTmc);
+        }
+
         int numberOfReports = bigTmcReader.getSizeOfDescription(allSortedTmc);
 
         ModelAndView modelAndView = new ModelAndView("all_tmc");
@@ -46,7 +52,7 @@ public class ReportController {
         modelAndView.addObject("numberOfReports", numberOfReports);
         modelAndView.addObject("beginStringDay", beginDay); //beginDay.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")
         modelAndView.addObject("endStringDay", endDay);
-        modelAndView.addObject("period", new Period(beginDay, endDay));
+        modelAndView.addObject("period", new Period(beginDay, endDay, epicenter));
 
         return modelAndView;
     }
@@ -55,7 +61,12 @@ public class ReportController {
     public String changeDate(@ModelAttribute Period period, Model model) {
         beginDay = period.getBeginDay();
         endDay = period.getEndDay();
+        return "redirect:/tmc";
+    }
 
+    @PostMapping("/epicenterChange")
+    public String changeEpicenter() {
+        epicenter = !epicenter;
         return "redirect:/tmc";
     }
 
